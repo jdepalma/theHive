@@ -11,8 +11,9 @@ Your experience may vary.
 
 You could modify get_alerts to only obtain alerts created in a specific time frame using the Between query:
  https://github.com/TheHive-Project/TheHive4py/blob/master/thehive4py/query.py
-
-
+ 
+Note 2: You may need to change the index queried in line 52. To determine your theHive index first run:
+  curl -GET http://127.0.0.1:9200/_cat/indices?pretty
 
 '''
 
