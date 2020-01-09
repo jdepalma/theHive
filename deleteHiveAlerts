@@ -9,11 +9,12 @@ Use at your own risk! This will delete ALL alerts
 Note:In testing, no negative consequneces found on cases that orignated from alerts.
 Your experience may vary.
 
-You could modify get_alerts to only obtain alerts created in a specific time frame using the Between query:
- https://github.com/TheHive-Project/TheHive4py/blob/master/thehive4py/query.py
  
-Note 2: You may need to change the index queried in line 52. To determine your theHive index first run:
+Note 2: You may need to change the index queried in line 56. To determine your theHive index first run:
   curl -GET http://127.0.0.1:9200/_cat/indices?pretty
+  
+  Lines 37, 38 contain logic to narrow down to times less than or equal to a unix date stamp
+  
 
 '''
 
@@ -24,6 +25,7 @@ def get_alerts():
     :return: list of alert ids
     '''
     from thehive4py.api import TheHiveApi
+    from thehive4py.api import Lte
 
     API_KEY = 'YOUR KEY'
 
@@ -32,6 +34,8 @@ def get_alerts():
     alert_ids = list()
 
     resp = api.find_alerts()
+    #query = Lte('createdAt', '1578518708424')
+    #resp = api.find_alerts(query=query)
 
     print(resp.status_code)
     alt = resp.json()
